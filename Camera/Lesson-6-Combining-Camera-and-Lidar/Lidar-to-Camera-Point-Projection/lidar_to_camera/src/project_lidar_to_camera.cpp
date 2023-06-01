@@ -5,6 +5,8 @@
 #include <opencv2/imgproc.hpp>
 
 #include "structIO.hpp"
+#include "matrix_utils.hpp"
+
 
 using namespace std;
 
@@ -40,7 +42,7 @@ void projectLidarToCamera2()
     cv::Mat R_rect_00(4,4,cv::DataType<double>::type); // 3x3 rectifying rotation to make image planes co-planar
     cv::Mat RT(4,4,cv::DataType<double>::type); // rotation matrix and translation vector
     loadCalibrationData(P_rect_00, R_rect_00, RT);
-
+    matrix_utils::printMatrix(RT);
     // project lidar points
     cv::Mat visImg = img.clone();
     cv::Mat overlay = visImg.clone();   // overlay
