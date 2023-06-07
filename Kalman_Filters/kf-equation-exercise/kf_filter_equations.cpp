@@ -5,7 +5,7 @@
 
 #include <iostream>
 #include <vector>
-#include "Dense"
+#include <eigen3/Eigen/Dense>
 
 using std::cout;
 using std::endl;
@@ -21,6 +21,7 @@ MatrixXd F; // state transition matrix
 MatrixXd H;	// measurement matrix
 MatrixXd R;	// measurement covariance matrix
 MatrixXd I; // Identity matrix
+MatrixXd G; // process noise gain matrix
 MatrixXd Q;	// process covariance matrix
 
 vector<VectorXd> measurements;
@@ -52,8 +53,11 @@ int main() {
 
     I = MatrixXd::Identity(2, 2);
 
-    Q = MatrixXd(2, 2);
-    Q << 0, 0, 0, 0;
+    G = MatrixXd(2, 1);
+    G << 0.5, 1;
+    double standard_deviation_of_acceleration = 0.1;
+    Q = MatrixXd(2, 2); 
+    Q = G*G.transpose()*(standard_deviation_of_acceleration*standard_deviation_of_acceleration);
 
     // create a list of measurements
     VectorXd single_meas(1);
