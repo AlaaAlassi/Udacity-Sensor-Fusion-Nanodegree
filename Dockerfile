@@ -87,4 +87,6 @@ RUN cmake -DOPENCV_EXTRA_MODULES_PATH=../opencv_contrib-${OPEN_CV_VERSION}/modul
     && make -j8 \
     && make install
 
+RUN apt-get install -y libeigen3-dev libpcl-dev
+
 WORKDIR /home
